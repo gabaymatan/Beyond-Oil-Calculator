@@ -41,7 +41,7 @@
     .hero-sub { font-size: 1.02rem; font-weight: 300; color: var(--text-mid); line-height: 1.65; max-width: 520px; }
 
     /* CARD */
-    .card { background: var(--white); border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); overflow: hidden; }
+    .card { background: var(--white); border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); overflow: visible; }
     .card-inner { padding: 36px 36px 40px; }
     .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 
@@ -58,16 +58,14 @@
     }
     .info-btn:hover { background: var(--green-muted); }
     .tooltip-box {
-      display: none; position: absolute; left: 50%; transform: translateX(-50%);
-      bottom: calc(100% + 8px);
+      display: none; position: fixed;
       background: var(--green-deep); color: white;
       font-size: 0.78rem; font-weight: 400; line-height: 1.55;
       padding: 10px 13px; border-radius: 10px; width: 230px;
-      z-index: 50; box-shadow: 0 6px 20px rgba(0,0,0,0.18); pointer-events: none;
+      z-index: 9999; box-shadow: 0 6px 20px rgba(0,0,0,0.22); pointer-events: none;
     }
     .tooltip-box::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--green-deep); }
     .tooltip-box strong { color: #7fffd4; display: block; margin-bottom: 3px; font-size: 0.8rem; }
-    .info-btn:hover .tooltip-box, .info-btn:focus .tooltip-box { display: block; }
 
     /* FIELDS */
     .fields { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
@@ -450,6 +448,40 @@
   </div>
 
   <script>
+    // ── TOOLTIPS (fixed positioning to avoid clipping) ──
+    document.querySelectorAll('.info-btn').forEach(btn => {
+      const tip = btn.querySelector('.tooltip-box');
+      if (!tip) return;
+
+      btn.addEventListener('mouseenter', () => {
+        const rect = btn.getBoundingClientRect();
+        tip.style.display = 'block';
+        const tipW = tip.offsetWidth;
+        let left = rect.left + rect.width / 2 - tipW / 2;
+        left = Math.max(8, Math.min(left, window.innerWidth - tipW - 8));
+        tip.style.left = left + 'px';
+        tip.style.top = (rect.top + window.scrollY - tip.offsetHeight - 10) + 'px';
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        tip.style.display = 'none';
+      });
+
+      btn.addEventListener('focus', () => {
+        const rect = btn.getBoundingClientRect();
+        tip.style.display = 'block';
+        const tipW = tip.offsetWidth;
+        let left = rect.left + rect.width / 2 - tipW / 2;
+        left = Math.max(8, Math.min(left, window.innerWidth - tipW - 8));
+        tip.style.left = left + 'px';
+        tip.style.top = (rect.top + window.scrollY - tip.offsetHeight - 10) + 'px';
+      });
+
+      btn.addEventListener('blur', () => {
+        tip.style.display = 'none';
+      });
+    });
+
     // ── CALCULATOR ──
     document.getElementById('calculate-btn').addEventListener('click', () => {
       const oilPrice = parseFloat(document.getElementById('oil-price').value);
