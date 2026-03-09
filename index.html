@@ -7,356 +7,170 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --green-deep: #005c3e;
-      --green-mid: #007b55;
-      --green-light: #00a86b;
-      --green-pale: #e8f7f1;
-      --green-muted: #c2e8d8;
-      --accent: #f4c430;
-      --text-dark: #0f1f19;
-      --text-mid: #3a5248;
-      --text-light: #6b8f82;
-      --white: #ffffff;
-      --surface: #f7fbf9;
-      --border: #d4ece1;
-      --shadow: 0 4px 24px rgba(0, 91, 62, 0.10);
-      --shadow-lg: 0 12px 48px rgba(0, 91, 62, 0.16);
+      --green-deep: #005c3e; --green-mid: #007b55; --green-light: #00a86b;
+      --green-pale: #e8f7f1; --green-muted: #c2e8d8; --accent: #f4c430;
+      --text-dark: #0f1f19; --text-mid: #3a5248; --text-light: #6b8f82;
+      --white: #ffffff; --surface: #f7fbf9; --border: #d4ece1;
+      --shadow: 0 4px 24px rgba(0,91,62,0.10); --shadow-lg: 0 12px 48px rgba(0,91,62,0.16);
     }
+    body { font-family: 'DM Sans', sans-serif; background-color: var(--surface); color: var(--text-dark); min-height: 100vh; overflow-x: hidden; }
 
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background-color: var(--surface);
-      color: var(--text-dark);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── BACKGROUND ORBS ── */
-    .bg-orbs {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-    }
-    .orb {
-      position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35;
-    }
+    .bg-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35; }
     .orb-1 { width: 520px; height: 520px; background: radial-gradient(circle, #00a86b55, transparent 70%); top: -140px; right: -100px; }
     .orb-2 { width: 380px; height: 380px; background: radial-gradient(circle, #c2e8d855, transparent 70%); bottom: 60px; left: -80px; }
     .orb-3 { width: 260px; height: 260px; background: radial-gradient(circle, #f4c43022, transparent 70%); top: 40%; left: 30%; }
 
-    /* ── LAYOUT ── */
-    .page-wrap {
-      position: relative; z-index: 1;
-      max-width: 680px; margin: 0 auto;
-      padding: 48px 24px 64px;
-    }
+    .page-wrap { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 48px 24px 64px; }
 
-    /* ── HEADER ── */
-    .logo-bar {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 48px;
-    }
-    .logo-mark {
-      width: 38px; height: 38px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--green-mid), var(--green-light));
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,123,85,0.3);
-    }
+    /* LOGO */
+    .logo-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 48px; }
+    .logo-mark { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--green-mid), var(--green-light)); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,123,85,0.3); }
     .logo-mark svg { width: 20px; height: 20px; fill: white; }
-    .logo-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem; font-weight: 700;
-      color: var(--green-deep); letter-spacing: -0.3px;
-    }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--green-deep); letter-spacing: -0.3px; }
     .logo-name span { color: var(--green-light); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero { margin-bottom: 40px; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: var(--green-pale); border: 1px solid var(--green-muted);
-      color: var(--green-mid); font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.8px; text-transform: uppercase;
-      padding: 5px 12px; border-radius: 100px; margin-bottom: 16px;
-    }
+    .eyebrow { display: inline-flex; align-items: center; gap: 6px; background: var(--green-pale); border: 1px solid var(--green-muted); color: var(--green-mid); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; margin-bottom: 16px; }
     .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-light); animation: pulse-dot 2s ease-in-out infinite; }
-    @keyframes pulse-dot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 2.8rem);
-      font-weight: 700; line-height: 1.15;
-      color: var(--text-dark); letter-spacing: -0.5px;
-      margin-bottom: 14px;
-    }
+    @keyframes pulse-dot { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.8); } }
+    h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,5vw,2.8rem); font-weight: 700; line-height: 1.15; color: var(--text-dark); letter-spacing: -0.5px; margin-bottom: 14px; }
     h1 em { font-style: normal; color: var(--green-mid); }
-    .hero-sub {
-      font-size: 1.02rem; font-weight: 300; color: var(--text-mid); line-height: 1.65;
-      max-width: 520px;
-    }
+    .hero-sub { font-size: 1.02rem; font-weight: 300; color: var(--text-mid); line-height: 1.65; max-width: 520px; }
 
-    /* ── CARD ── */
-    .card {
-      background: var(--white);
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-lg);
-      overflow: hidden;
-    }
+    /* CARD */
+    .card { background: var(--white); border-radius: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-lg); overflow: hidden; }
     .card-inner { padding: 36px 36px 40px; }
+    .section-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 
-    /* ── SECTION LABEL ── */
-    .section-label {
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 1.2px;
-      text-transform: uppercase; color: var(--text-light);
-      margin-bottom: 20px; padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
+    /* TOOLTIP */
+    .label-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .label-row label { font-size: 0.88rem; font-weight: 500; color: var(--text-mid); }
+    .info-btn {
+      width: 17px; height: 17px; border-radius: 50%;
+      background: var(--green-pale); border: 1.5px solid var(--green-muted);
+      color: var(--green-mid); font-size: 0.65rem; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0; position: relative;
+      transition: background 0.15s; line-height: 1; user-select: none;
     }
+    .info-btn:hover { background: var(--green-muted); }
+    .tooltip-box {
+      display: none; position: absolute; left: 50%; transform: translateX(-50%);
+      bottom: calc(100% + 8px);
+      background: var(--green-deep); color: white;
+      font-size: 0.78rem; font-weight: 400; line-height: 1.55;
+      padding: 10px 13px; border-radius: 10px; width: 230px;
+      z-index: 50; box-shadow: 0 6px 20px rgba(0,0,0,0.18); pointer-events: none;
+    }
+    .tooltip-box::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 6px solid transparent; border-top-color: var(--green-deep); }
+    .tooltip-box strong { color: #7fffd4; display: block; margin-bottom: 3px; font-size: 0.8rem; }
+    .info-btn:hover .tooltip-box, .info-btn:focus .tooltip-box { display: block; }
 
-    /* ── FORM FIELDS ── */
+    /* FIELDS */
     .fields { display: flex; flex-direction: column; gap: 18px; margin-bottom: 28px; }
-    .field { display: flex; flex-direction: column; gap: 6px; }
-    .field label { font-size: 0.88rem; font-weight: 500; color: var(--text-mid); }
-
-    .field input, .field select {
-      padding: 13px 16px;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      background: var(--surface);
-      color: var(--text-dark);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.96rem;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-      appearance: none; -webkit-appearance: none;
-      outline: none;
-    }
-    .field input:focus, .field select:focus {
-      border-color: var(--green-mid);
-      background: var(--white);
-      box-shadow: 0 0 0 3px rgba(0,123,85,0.1);
-    }
+    .field { display: flex; flex-direction: column; }
+    .field input, .field select { padding: 13px 16px; border: 1.5px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--text-dark); font-family: 'DM Sans', sans-serif; font-size: 0.96rem; transition: border-color 0.2s, box-shadow 0.2s, background 0.2s; appearance: none; -webkit-appearance: none; outline: none; }
+    .field input:focus, .field select:focus { border-color: var(--green-mid); background: var(--white); box-shadow: 0 0 0 3px rgba(0,123,85,0.1); }
     .field input::placeholder { color: #b0c8bf; }
-
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-
     .select-wrap { position: relative; }
-    .select-wrap::after {
-      content: '';
-      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-      width: 0; height: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid var(--text-light);
-      pointer-events: none;
-    }
+    .select-wrap::after { content: ''; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid var(--text-light); pointer-events: none; }
     .select-wrap select { width: 100%; cursor: pointer; }
 
-    /* ── CTA BUTTON ── */
-    .btn-calc {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-light) 100%);
-      color: white;
-      border: none;
-      border-radius: 14px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem; font-weight: 600;
-      cursor: pointer;
-      position: relative; overflow: hidden;
-      transition: transform 0.15s, box-shadow 0.15s;
-      box-shadow: 0 6px 20px rgba(0,123,85,0.3);
-      letter-spacing: 0.2px;
-    }
-    .btn-calc::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
-      opacity: 0; transition: opacity 0.2s;
-    }
+    /* WARNING BADGE */
+    .warning-badge { display: none; align-items: center; gap: 7px; background: #fff8e1; border: 1px solid #ffe082; border-radius: 10px; padding: 8px 12px; font-size: 0.8rem; color: #7a5800; font-weight: 500; margin-top: 8px; line-height: 1.4; }
+    .warning-badge.show { display: flex; }
+
+    /* BUTTON */
+    .btn-calc { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--green-mid), var(--green-light)); color: white; border: none; border-radius: 14px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; position: relative; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 6px 20px rgba(0,123,85,0.3); letter-spacing: 0.2px; }
+    .btn-calc::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent); opacity: 0; transition: opacity 0.2s; }
     .btn-calc:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,123,85,0.38); }
     .btn-calc:hover::before { opacity: 1; }
     .btn-calc:active { transform: translateY(0); }
-    .btn-calc .btn-icon { margin-right: 8px; }
 
-    /* ── RESULTS DIVIDER ── */
-    .results-divider {
-      height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent);
-      margin: 32px 0;
-    }
-
-    /* ── RESULTS GRID ── */
+    /* RESULTS */
+    .results-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 32px 0; }
     .results { display: none; }
     .results.show { display: block; animation: fadeUp 0.4s ease; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
+    @keyframes fadeUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
     .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
-    .result-tile {
-      border-radius: 16px;
-      padding: 20px 18px;
-      display: flex; flex-direction: column; gap: 6px;
-    }
-    .result-tile.standard {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-    }
-    .result-tile.highlight {
-      background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
-      border: none; grid-column: 1 / -1;
-      flex-direction: row; align-items: center;
-      justify-content: space-between; padding: 22px 24px;
-      box-shadow: 0 8px 28px rgba(0,91,62,0.22);
-    }
-    .result-tile.accent {
-      background: linear-gradient(135deg, #f4c430, #f0a800);
-      border: none;
-      box-shadow: 0 4px 16px rgba(244,196,48,0.25);
-    }
-
-    .tile-label {
-      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.6px;
-      text-transform: uppercase; color: var(--text-light);
-    }
-    .result-tile.highlight .tile-label,
-    .result-tile.highlight .tile-value { color: rgba(255,255,255,0.85); }
+    .result-tile { border-radius: 16px; padding: 20px 18px; display: flex; flex-direction: column; gap: 6px; }
+    .result-tile.standard { background: var(--surface); border: 1.5px solid var(--border); }
+    .result-tile.highlight { background: linear-gradient(135deg, var(--green-deep), var(--green-mid)); border: none; grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; padding: 22px 24px; box-shadow: 0 8px 28px rgba(0,91,62,0.22); }
+    .result-tile.accent { background: linear-gradient(135deg, #f4c430, #f0a800); border: none; box-shadow: 0 4px 16px rgba(244,196,48,0.25); }
+    .tile-label { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-light); }
+    .result-tile.highlight .tile-label, .result-tile.highlight .tile-value { color: rgba(255,255,255,0.85); }
     .result-tile.highlight .tile-value-main { color: white; }
     .result-tile.accent .tile-label { color: rgba(15,31,25,0.65); }
     .result-tile.accent .tile-value { color: var(--text-dark); }
-
-    .tile-value {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.7rem; font-weight: 700;
-      color: var(--text-dark); line-height: 1;
-    }
-    .tile-value-main {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.2rem; font-weight: 700;
-      color: white; line-height: 1;
-    }
+    .tile-value { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: var(--text-dark); line-height: 1; }
+    .tile-value-main { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; color: white; line-height: 1; }
     .tile-sub { font-size: 0.8rem; color: var(--text-light); font-weight: 400; }
     .result-tile.highlight .tile-sub { color: rgba(255,255,255,0.6); }
+    .savings-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.18); border-radius: 100px; padding: 5px 12px; font-size: 0.82rem; font-weight: 600; color: white; margin-top: 8px; width: fit-content; }
 
-    /* ── SAVINGS BADGE ── */
-    .savings-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,0.18); border-radius: 100px;
-      padding: 5px 12px; font-size: 0.82rem; font-weight: 600; color: white;
-      margin-top: 8px; width: fit-content;
-    }
-
-    /* ── FOOTER ── */
-    .card-footer {
-      padding: 18px 36px;
-      background: var(--green-pale);
-      border-top: 1px solid var(--green-muted);
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 12px; flex-wrap: wrap;
-    }
+    /* CARD FOOTER */
+    .card-footer { padding: 18px 36px; background: var(--green-pale); border-top: 1px solid var(--green-muted); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
     .footer-brand { display: flex; align-items: center; gap: 8px; }
     .footer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-light); }
     .footer-text { font-size: 0.82rem; color: var(--text-mid); font-weight: 500; }
-    .footer-link {
-      font-size: 0.8rem; color: var(--green-mid); font-weight: 600;
-      text-decoration: none; letter-spacing: 0.2px;
-    }
+    .footer-link { font-size: 0.8rem; color: var(--green-mid); font-weight: 600; text-decoration: none; }
     .footer-link:hover { text-decoration: underline; }
 
-    /* ── ADMIN PANEL ── */
-    .admin-panel {
-      display: none;
-      position: fixed; bottom: 24px; right: 24px;
-      background: white; border: 1px solid var(--border);
-      border-radius: 18px; padding: 20px 22px;
-      box-shadow: var(--shadow-lg); z-index: 100;
-      width: 270px;
-      animation: fadeUp 0.25s ease;
-    }
-    .admin-panel h4 {
-      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.8px;
-      text-transform: uppercase; color: var(--text-light); margin-bottom: 14px;
-    }
-    .admin-panel input {
-      width: 100%; padding: 10px 14px;
-      border: 1.5px solid var(--border); border-radius: 10px;
-      background: var(--surface); font-family: 'DM Sans', sans-serif;
-      font-size: 0.94rem; color: var(--text-dark); outline: none;
-      transition: border-color 0.2s;
-    }
+    /* BENEFITS */
+    .benefits-section { margin-top: 32px; }
+    .benefits-heading { text-align: center; margin-bottom: 20px; }
+    .benefits-heading p { font-size: 0.78rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text-light); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .benefit-card { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 24px 18px 22px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+    .benefit-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--green-mid), var(--green-light)); border-radius: 20px 20px 0 0; }
+    .benefit-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .benefit-icon-wrap { width: 56px; height: 56px; border-radius: 16px; background: var(--green-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .benefit-icon-wrap svg { width: 28px; height: 28px; }
+    .benefit-title { font-size: 0.9rem; font-weight: 700; color: var(--text-dark); line-height: 1.3; }
+    .benefit-desc { font-size: 0.8rem; color: var(--text-light); line-height: 1.55; font-weight: 400; }
+
+    /* CTA FORM */
+    .cta-section { margin-top: 32px; }
+    .cta-card { background: linear-gradient(135deg, var(--green-deep) 0%, #004d33 100%); border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg); }
+    .cta-inner { padding: 36px 36px 40px; }
+    .cta-eyebrow { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: var(--green-muted); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; padding: 4px 11px; border-radius: 100px; margin-bottom: 14px; }
+    .cta-title { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: white; line-height: 1.2; margin-bottom: 8px; }
+    .cta-sub { font-size: 0.92rem; color: rgba(255,255,255,0.65); font-weight: 300; line-height: 1.6; margin-bottom: 28px; }
+    .cta-fields { display: flex; flex-direction: column; gap: 14px; }
+    .cta-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .cta-field { display: flex; flex-direction: column; gap: 6px; }
+    .cta-field label { font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.7); }
+    .cta-field input { padding: 13px 16px; border: 1.5px solid rgba(255,255,255,0.15); border-radius: 12px; background: rgba(255,255,255,0.08); color: white; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s, background 0.2s; }
+    .cta-field input::placeholder { color: rgba(255,255,255,0.3); }
+    .cta-field input:focus { border-color: var(--green-light); background: rgba(255,255,255,0.13); }
+    .btn-cta { width: 100%; margin-top: 20px; padding: 16px; background: var(--accent); color: var(--text-dark); border: none; border-radius: 14px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 6px 20px rgba(244,196,48,0.35); }
+    .btn-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(244,196,48,0.5); }
+    .btn-cta:active { transform: translateY(0); }
+    .btn-cta:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* SUCCESS */
+    .cta-success { display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 14px; padding: 16px 0 8px; }
+    .cta-success.show { display: flex; animation: fadeUp 0.4s ease; }
+    .success-icon { width: 60px; height: 60px; border-radius: 50%; background: rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+    .success-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: white; }
+    .success-sub { font-size: 0.9rem; color: rgba(255,255,255,0.6); line-height: 1.65; max-width: 360px; }
+
+    /* ADMIN */
+    .admin-panel { display: none; position: fixed; bottom: 24px; right: 24px; background: white; border: 1px solid var(--border); border-radius: 18px; padding: 20px 22px; box-shadow: var(--shadow-lg); z-index: 100; width: 280px; }
+    .admin-panel h4 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-light); margin-bottom: 14px; }
+    .admin-row { margin-bottom: 12px; }
+    .admin-row label { font-size: 0.8rem; color: var(--text-mid); display: block; margin-bottom: 5px; }
+    .admin-panel input { width: 100%; padding: 10px 14px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--surface); font-family: 'DM Sans', sans-serif; font-size: 0.94rem; color: var(--text-dark); outline: none; }
     .admin-panel input:focus { border-color: var(--green-mid); }
-    .admin-close {
-      margin-top: 12px; width: 100%; padding: 9px;
-      background: var(--green-pale); color: var(--green-deep);
-      border: 1px solid var(--green-muted); border-radius: 10px;
-      font-family: 'DM Sans', sans-serif; font-size: 0.88rem;
-      font-weight: 600; cursor: pointer; transition: background 0.15s;
-    }
+    .admin-close { margin-top: 4px; width: 100%; padding: 9px; background: var(--green-pale); color: var(--green-deep); border: 1px solid var(--green-muted); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 600; cursor: pointer; }
     .admin-close:hover { background: var(--green-muted); }
 
-    /* ── BENEFITS ── */
-    .benefits-section { margin-top: 32px; }
-    .benefits-heading {
-      text-align: center; margin-bottom: 20px;
-    }
-    .benefits-heading p {
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 1.2px;
-      text-transform: uppercase; color: var(--text-light);
-    }
-
-    .benefits-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
-    }
-
-    .benefit-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 24px 18px 22px;
-      display: flex; flex-direction: column; align-items: center;
-      text-align: center; gap: 14px;
-      box-shadow: var(--shadow);
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative; overflow: hidden;
-    }
-    .benefit-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--green-mid), var(--green-light));
-      border-radius: 20px 20px 0 0;
-    }
-    .benefit-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .benefit-icon-wrap {
-      width: 56px; height: 56px; border-radius: 16px;
-      background: var(--green-pale);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .benefit-icon-wrap svg {
-      width: 28px; height: 28px;
-    }
-
-    .benefit-title {
-      font-size: 0.9rem; font-weight: 700;
-      color: var(--text-dark); line-height: 1.3;
-    }
-    .benefit-desc {
-      font-size: 0.8rem; color: var(--text-light);
-      line-height: 1.55; font-weight: 400;
-    }
-
-    @media (max-width: 540px) {
-      .benefits-grid { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 480px) {
-      .card-inner { padding: 24px 20px 28px; }
-      .card-footer { padding: 16px 20px; }
-      .field-row { grid-template-columns: 1fr; }
-      .results-grid { grid-template-columns: 1fr; }
-      .result-tile.highlight { flex-direction: column; align-items: flex-start; gap: 10px; }
-    }
+    @media (max-width: 540px) { .benefits-grid { grid-template-columns: 1fr; } .cta-field-row { grid-template-columns: 1fr; } }
+    @media (max-width: 480px) { .card-inner, .cta-inner { padding: 24px 20px 28px; } .card-footer { padding: 16px 20px; } .field-row { grid-template-columns: 1fr; } .results-grid { grid-template-columns: 1fr; } .result-tile.highlight { flex-direction: column; align-items: flex-start; gap: 10px; } }
   </style>
 </head>
 <body>
@@ -372,44 +186,65 @@
     <!-- LOGO -->
     <div class="logo-bar">
       <div class="logo-mark">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2C9 6 5 9.5 5 13.5a7 7 0 0014 0C19 9.5 15 6 12 2z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path d="M12 2C9 6 5 9.5 5 13.5a7 7 0 0014 0C19 9.5 15 6 12 2z"/></svg>
       </div>
       <div class="logo-name">Beyond <span>Oil</span></div>
     </div>
 
     <!-- HERO -->
     <div class="hero">
-      <div class="eyebrow">
-        <div class="eyebrow-dot"></div>
-        ROI Calculator
-      </div>
+      <div class="eyebrow"><div class="eyebrow-dot"></div>ROI Calculator</div>
       <h1>See Your <em>Real Savings</em><br>With Beyond Oil</h1>
       <p class="hero-sub">Enter your frying setup below and instantly see how much you save per month by switching to our powder formula — no more wasted oil, no more wasted money.</p>
     </div>
 
-    <!-- CARD -->
+    <!-- CALCULATOR CARD -->
     <div class="card">
       <div class="card-inner">
-
         <div class="section-label">Your Setup</div>
 
         <div class="fields">
           <div class="field-row">
+
+            <!-- Oil Price -->
             <div class="field">
-              <label for="oil-price">Oil Price <span style="color:var(--text-light);font-weight:400">(per lb / liter)</span></label>
-              <input type="number" id="oil-price" placeholder="e.g. 2.50" min="0" step="0.01" />
+              <div class="label-row">
+                <label for="oil-price">Oil Price (per lb)</label>
+                <div class="info-btn" tabindex="0">i
+                  <div class="tooltip-box">
+                    <strong>How to calculate your price:</strong>
+                    Divide the bottle cost by its weight.<br><br>
+                    Example: 35 lb container for $44<br>
+                    → $44 ÷ 35 = <strong style="color:#7fffd4">$1.26 per lb</strong>
+                  </div>
+                </div>
+              </div>
+              <input type="number" id="oil-price" placeholder="e.g. 1.50" min="0" step="0.01" />
             </div>
+
+            <!-- Fryer Capacity -->
             <div class="field">
-              <label for="fryer-capacity">Fryer Capacity</label>
-              <input type="number" id="fryer-capacity" placeholder="e.g. 15" min="0" step="1" />
+              <div class="label-row">
+                <label for="fryer-capacity">Fryer Capacity (lbs)</label>
+                <div class="info-btn" tabindex="0">i
+                  <div class="tooltip-box">
+                    <strong>Not sure of your capacity?</strong>
+                    Most commercial fryers hold <strong style="color:#7fffd4">50–60 lbs</strong> of oil. Check the label on the side of your fryer or ask your equipment supplier.
+                  </div>
+                </div>
+              </div>
+              <input type="number" id="fryer-capacity" placeholder="e.g. 50" min="0" step="1" />
             </div>
+
           </div>
 
           <div class="field-row">
+
+            <!-- Number of Fryers -->
             <div class="field">
-              <label for="num-fryers">Number of Fryers</label>
+              <div class="label-row">
+                <label for="num-fryers">Number of Fryers</label>
+              </div>
               <div class="select-wrap">
                 <select id="num-fryers">
                   <option value="" disabled selected>Select</option>
@@ -426,8 +261,19 @@
                 </select>
               </div>
             </div>
+
+            <!-- Days Between Changes -->
             <div class="field">
-              <label for="days-change">Days Between Oil Changes</label>
+              <div class="label-row">
+                <label for="days-change">Days Between Oil Changes</label>
+                <div class="info-btn" tabindex="0">i
+                  <div class="tooltip-box">
+                    <strong>⚠️ Did you know?</strong>
+                    Reusing oil beyond 3 days causes it to degrade — producing harmful carcinogens that put your staff and customers at risk, and causing uneven food color and taste.<br><br>
+                    Beyond Oil safely extends oil life to <strong style="color:#7fffd4">30 full days</strong>.
+                  </div>
+                </div>
+              </div>
               <div class="select-wrap">
                 <select id="days-change">
                   <option value="" disabled selected>Select</option>
@@ -443,19 +289,22 @@
                   <option value="10">Every 10 days</option>
                 </select>
               </div>
+              <div class="warning-badge" id="health-warning">
+                ⚠️ <span>Changing oil every <strong id="warning-days"></strong> days increases health risks — degraded oil produces carcinogens affecting your staff and customers.</span>
+              </div>
             </div>
+
           </div>
         </div>
 
         <button class="btn-calc" id="calculate-btn">
-          <span class="btn-icon">✦</span> Calculate My Savings
+          <span style="margin-right:8px">✦</span>Calculate My Savings
         </button>
 
         <!-- RESULTS -->
         <div class="results" id="results">
           <div class="results-divider"></div>
           <div class="section-label">Your Monthly Breakdown</div>
-
           <div class="results-grid">
             <div class="result-tile standard">
               <div class="tile-label">Current Oil Cost</div>
@@ -476,7 +325,7 @@
               <div>
                 <div class="tile-label" style="text-align:right">You Save</div>
                 <div class="tile-value-main" id="percentage-savings" style="text-align:right">—</div>
-                <div class="savings-badge" id="savings-badge">✦ on oil costs</div>
+                <div class="savings-badge">✦ on oil costs</div>
               </div>
             </div>
           </div>
@@ -496,43 +345,36 @@
 
     <!-- BENEFITS -->
     <div class="benefits-section">
-      <div class="benefits-heading">
-        <p>Beyond the savings</p>
-      </div>
+      <div class="benefits-heading"><p>Beyond the savings</p></div>
       <div class="benefits-grid">
-
         <div class="benefit-card">
           <div class="benefit-icon-wrap">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none">
               <path d="M3 8h3M3 12h2M3 16h3" stroke="#00a86b" stroke-width="1.8" stroke-linecap="round"/>
               <path d="M8 6c0 0 2-1 4 0s4 0 4 0v8c0 2-1.5 3-4 3s-4-1-4-3V6z" stroke="#007b55" stroke-width="1.8" stroke-linejoin="round"/>
               <path d="M8 10c2 1.5 6 1.5 8 0" stroke="#00a86b" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M10 20h4" stroke="#c2e8d8" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M12 17v3" stroke="#c2e8d8" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M10 20h4M12 17v3" stroke="#c2e8d8" stroke-width="1.8" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="benefit-title">Eliminate Oil Smell & Oily Floors</div>
           <div class="benefit-desc">No more heavy frying odors or slippery surfaces. Beyond Oil keeps your kitchen cleaner and safer for everyone.</div>
         </div>
-
         <div class="benefit-card">
           <div class="benefit-icon-wrap">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none">
               <circle cx="12" cy="10" r="5" stroke="#007b55" stroke-width="1.8"/>
               <path d="M9.5 10c.8 1.2 4.2 1.2 5 0" stroke="#00a86b" stroke-width="1.8" stroke-linecap="round"/>
               <circle cx="10" cy="8.5" r="0.8" fill="#007b55"/>
               <circle cx="14" cy="8.5" r="0.8" fill="#007b55"/>
-              <path d="M5 19c0-3 3-4 7-4s7 1 7 4" stroke="#c2e8d8" stroke-width="1.8" stroke-linecap="round"/>
-              <path d="M8 19h8" stroke="#007b55" stroke-width="1.8" stroke-linecap="round"/>
+              <path d="M5 19c0-3 3-4 7-4s7 1 7 4M8 19h8" stroke="#007b55" stroke-width="1.8" stroke-linecap="round"/>
             </svg>
           </div>
           <div class="benefit-title">Consistent Food Color & Taste</div>
           <div class="benefit-desc">Every batch fries to the same golden perfection. Stabilized oil means your food quality never dips between oil changes.</div>
         </div>
-
         <div class="benefit-card">
           <div class="benefit-icon-wrap">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 24 24" fill="none">
               <path d="M12 21s-8-5.5-8-11a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 5.5-8 11-8 11z" stroke="#007b55" stroke-width="1.8" stroke-linejoin="round"/>
               <path d="M9.5 11h5M12 8.5v5" stroke="#00a86b" stroke-width="1.8" stroke-linecap="round"/>
             </svg>
@@ -540,31 +382,83 @@
           <div class="benefit-title">Protect Employee & Customer Health</div>
           <div class="benefit-desc">Dramatically reduces harmful compounds and carcinogens produced during frying — safer for your staff and healthier for your guests.</div>
         </div>
+      </div>
+    </div>
 
+    <!-- CTA FORM -->
+    <div class="cta-section">
+      <div class="cta-card">
+        <div class="cta-inner">
+          <div class="cta-eyebrow">✦ Get Started</div>
+          <div class="cta-title">Ready to Start Saving?</div>
+          <p class="cta-sub">Leave your details below and an account specialist will reach out — usually within one business day.</p>
+
+          <div id="cta-form-wrap">
+            <div class="cta-fields">
+              <div class="cta-field-row">
+                <div class="cta-field">
+                  <label for="cta-name">Your Name</label>
+                  <input type="text" id="cta-name" placeholder="John Smith" />
+                </div>
+                <div class="cta-field">
+                  <label for="cta-restaurant">Restaurant Name</label>
+                  <input type="text" id="cta-restaurant" placeholder="The Golden Fryer" />
+                </div>
+              </div>
+              <div class="cta-field-row">
+                <div class="cta-field">
+                  <label for="cta-phone">Phone Number</label>
+                  <input type="tel" id="cta-phone" placeholder="(555) 000-0000" />
+                </div>
+                <div class="cta-field">
+                  <label for="cta-email">Email Address</label>
+                  <input type="email" id="cta-email" placeholder="john@restaurant.com" />
+                </div>
+              </div>
+            </div>
+            <button class="btn-cta" id="cta-submit-btn">✦ &nbsp;Contact Me — I Want to Save on Oil</button>
+          </div>
+
+          <div class="cta-success" id="cta-success">
+            <div class="success-icon">✓</div>
+            <div class="success-title">You're all set!</div>
+            <p class="success-sub">Our account specialist will be in touch shortly. Get ready to cut your oil costs in half.</p>
+          </div>
+
+        </div>
       </div>
     </div>
 
   </div>
 
-  <!-- ADMIN PANEL -->
+  <!-- ADMIN PANEL (double-click anywhere to open) -->
   <div class="admin-panel" id="admin-panel">
     <h4>⚙ Admin Settings</h4>
-    <label for="product-cost" style="font-size:0.83rem;color:var(--text-mid);display:block;margin-bottom:7px;">Product Cost ($ per fryer/day)</label>
-    <input type="number" id="product-cost" value="7.5" step="0.1" min="0" />
+    <div class="admin-row">
+      <label>Product cost ($ per fryer/day)</label>
+      <input type="number" id="product-cost" value="10" step="0.1" min="0" />
+    </div>
+    <div class="admin-row">
+      <label>Notification email (for leads)</label>
+      <input type="email" id="admin-email" placeholder="you@email.com" />
+    </div>
+    <div class="admin-row">
+      <label>Formspree Form ID</label>
+      <input type="text" id="formspree-id" placeholder="xyzabcd" />
+    </div>
     <button class="admin-close" onclick="toggleAdmin()">Done</button>
   </div>
 
   <script>
+    // ── CALCULATOR ──
     document.getElementById('calculate-btn').addEventListener('click', () => {
       const oilPrice = parseFloat(document.getElementById('oil-price').value);
       const fryerCapacity = parseFloat(document.getElementById('fryer-capacity').value);
       const numFryers = parseInt(document.getElementById('num-fryers').value);
       const daysChange = parseInt(document.getElementById('days-change').value);
-      const productCostPerDay = parseFloat(document.getElementById('product-cost').value) || 7.5;
+      const productCostPerDay = parseFloat(document.getElementById('product-cost').value) || 10;
 
       if (isNaN(oilPrice) || isNaN(fryerCapacity) || isNaN(numFryers) || isNaN(daysChange)) {
-        // Shake fields with errors
-        document.querySelector('.card-inner').style.animation = 'none';
         alert('Please fill in all fields before calculating.');
         return;
       }
@@ -573,7 +467,6 @@
       const productCost = productCostPerDay * 30 * numFryers;
       const savingsTotal = oilCostTotal - productCost;
       const percentageSavings = ((savingsTotal / oilCostTotal) * 100).toFixed(1);
-
       const fmt = v => '$' + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
       document.getElementById('oil-cost-total').textContent = fmt(oilCostTotal);
@@ -585,14 +478,54 @@
       results.classList.remove('show');
       void results.offsetWidth;
       results.classList.add('show');
+      setTimeout(() => results.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
     });
 
-    function toggleAdmin() {
-      const panel = document.getElementById('admin-panel');
-      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-    }
+    // ── HEALTH WARNING ──
+    document.getElementById('days-change').addEventListener('change', function () {
+      const days = parseInt(this.value);
+      const badge = document.getElementById('health-warning');
+      document.getElementById('warning-days').textContent = days;
+      badge.classList.toggle('show', days >= 4);
+    });
 
-    // Double-click anywhere to open admin
+    // ── CTA FORM ──
+    document.getElementById('cta-submit-btn').addEventListener('click', async () => {
+      const name = document.getElementById('cta-name').value.trim();
+      const restaurant = document.getElementById('cta-restaurant').value.trim();
+      const phone = document.getElementById('cta-phone').value.trim();
+      const email = document.getElementById('cta-email').value.trim();
+
+      if (!name || !restaurant || !phone || !email) {
+        alert('Please fill in all fields so we can reach you.');
+        return;
+      }
+
+      const btn = document.getElementById('cta-submit-btn');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      const formspreeId = document.getElementById('formspree-id').value.trim() || 'YOUR_FORM_ID';
+
+      try {
+        if (formspreeId !== 'YOUR_FORM_ID') {
+          await fetch(`https://formspree.io/f/${formspreeId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ name, restaurant, phone, email, _subject: `New Beyond Oil Lead — ${restaurant}` })
+          });
+        }
+      } catch (e) { /* silently continue to show success */ }
+
+      document.getElementById('cta-form-wrap').style.display = 'none';
+      document.getElementById('cta-success').classList.add('show');
+    });
+
+    // ── ADMIN TOGGLE ──
+    function toggleAdmin() {
+      const p = document.getElementById('admin-panel');
+      p.style.display = p.style.display === 'block' ? 'none' : 'block';
+    }
     document.addEventListener('dblclick', toggleAdmin);
   </script>
 </body>
